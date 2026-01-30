@@ -120,3 +120,13 @@
 2026-01-30 11:27:45,921 - bot.client - INFO - Connection test successful
 2026-01-30 11:27:46,421 - bot.client - INFO - Account info retrieved successfully
 2026-01-30 11:27:46,421 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:27:46] "GET /api/test-connection HTTP/1.1" 200 -
+2026-01-30 11:28:25,968 - bot.client - INFO - Connection test successful
+2026-01-30 11:28:26,484 - bot.client - INFO - Account info retrieved successfully
+2026-01-30 11:28:26,484 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:28:26] "GET /api/test-connection HTTP/1.1" 200 -
+2026-01-30 11:28:26,980 - bot.client - INFO - Connection test successful
+2026-01-30 11:28:27,483 - bot.client - INFO - Account info retrieved successfully
+2026-01-30 11:28:27,483 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:28:27] "GET /api/test-connection HTTP/1.1" 200 -
+2026-01-30 11:28:28,174 - werkzeug - INFO -  * Detected change in 'A:\\PROJECT1\\trading_bot\\bot\\client.py', reloading
+2026-01-30 11:28:28,174 - werkzeug - INFO -  * Detected change in 'A:\\PROJECT1\\trading_bot\\bot\\logging_config.py', reloading
+2026-01-30 11:28:28,182 - werkzeug - INFO -  * Detected change in 'A:\\PROJECT1\\trading_bot\\bot\\orders.py', reloading
+2026-01-30 11:28:28,185 - werkzeug - INFO -  * Detected change in 'A:\\PROJECT1\\trading_bot\\bot\\validators.py', reloading
