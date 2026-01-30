@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Dashboard - Binance Bot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-robot"></i>
+                <span>Trading Bot</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-link active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Trading</span>
+                </a>
+                <a href="orders.html" class="nav-link">
+                    <i class="fas fa-list"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            
+            <div class="nav-user">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Testnet User</span>
+                </div>
+                <div class="connection-status connected">
+                    <i class="fas fa-circle"></i>
+                    <span>Connected</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="dashboard-layout">
+            <!-- Left Panel - Trading Form -->
+            <div class="panel left-panel">
+                <section class="trading-section">
+                    <h2><i class="fas fa-trade-federation"></i> Place New Order</h2>
+                    
+                    <div class="trading-card">
+                        <form id="orderForm">
+                            <!-- Symbol Selection -->
+                            <div class="form-group">
+                                <label for="symbol">
+                                    <i class="fas fa-coins"></i> Trading Pair
+                                </label>
+                                <div class="symbol-selector">
+                                    <select id="symbol" class="form-control">
+                                        <option value="BTCUSDT">BTC/USDT</option>
+                                        <option value="ETHUSDT">ETH/USDT</option>
+                                        <option value="BNBUSDT">BNB/USDT</option>
+                                        <option value="ADAUSDT">ADA/USDT</option>
+                                        <option value="XRPUSDT">XRP/USDT</option>
+                                        <option value="SOLUSDT">SOL/USDT</option>
+                                    </select>
+                                    <button type="button" class="btn-icon" id="refreshSymbols">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Order Type -->
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-list-alt"></i> Order Type
+                                </label>
+                                <div class="order-type-selector">
+                                    <div class="type-options">
+                                        <label class="type-option active" data-type="MARKET">
+                                            <i class="fas fa-bolt"></i>
+                                            <span>Market</span>
+                                        </label>
+                                        <label class="type-option" data-type="LIMIT">
+                                            <i class="fas fa-sliders-h"></i>
+                                            <span>Limit</span>
+                                        </label>
+                                        <input type="hidden" id="orderType" value="MARKET">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Side Selection -->
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-arrow-right-arrow-left"></i> Side
+                                </label>
+                                <div class="side-selector">
+                                    <label class="side-option buy active" data-side="BUY">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span>BUY</span>
+                                    </label>
+                                    <label class="side-option sell" data-side="SELL">
+                                        <i class="fas fa-arrow-down"></i>
+                                        <span>SELL</span>
+                                    </label>
+                                    <input type="hidden" id="side" value="BUY">
+                                </div>
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="form-group">
+                                <label for="quantity">
+                                    <i class="fas fa-weight-hanging"></i> Quantity
+                                </label>
+                                <div class="quantity-control">
+                                    <input type="number" 
+                                           id="quantity" 
+                                           class="form-control" 
+                                           step="0.001" 
+                                           min="0.001" 
+                                           value="0.001" 
+                                           required>
+                                    <div class="quantity-presets">
+                                        <button type="button" class="btn-preset" data-value="0.001">0.001</button>
+                                        <button type="button" class="btn-preset" data-value="0.01">0.01</button>
+                                        <button type="button" class="btn-preset" data-value="0.1">0.1</button>
+                                        <button type="button" class="btn-preset" data-value="1">1</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Price (for LIMIT orders) -->
+                            <div class="form-group price-group hidden" id="priceGroup">
+                                <label for="price">
+                                    <i class="fas fa-tag"></i> Price (USDT)
+                                </label>
+                                <div class="price-input">
+                                    <input type="number" 
+                                           id="price" 
+                                           class="form-control" 
+                                           step="0.01" 
+                                           min="0.01" 
+                                           placeholder="Enter price">
+                                    <div class="market-price">
+                                        Current: <span id="currentPrice">$0</span>
+                                        <button type="button" class="btn-small" id="useMarketPrice">
+                                            Use Market
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Order Summary -->
+                            <div class="order-summary">
+                                <h4><i class="fas fa-receipt"></i> Order Summary</h4>
+                                <div class="summary-details">
+                                    <div class="summary-row">
+                                        <span>Symbol:</span>
+                                        <span id="summarySymbol">BTCUSDT</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Type:</span>
+                                        <span id="summaryType">MARKET</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Side:</span>
+                                        <span id="summarySide" class="side-buy">BUY</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Quantity:</span>
+                                        <span id="summaryQuantity">0.001</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Estimated Cost:</span>
+                                        <span id="summaryCost">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" id="resetForm">
+                                    <i class="fas fa-redo"></i> Reset
+                                </button>
+                                <button type="submit" class="btn-primary" id="submitOrder">
+                                    <i class="fas fa-paper-plane"></i> Place Order
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Account Info -->
+                <section class="account-section">
+                    <h2><i class="fas fa-wallet"></i> Account Balance</h2>
+                    <div class="account-card">
+                        <div class="balance-info">
+                            <div class="balance-item">
+                                <span class="balance-label">Total Balance</span>
+                                <span class="balance-value">$10,000.00</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-label">Available</span>
+                                <span class="balance-value available">$8,500.00</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-label">In Orders</span>
+                                <span class="balance-value locked">$1,500.00</span>
+                            </div>
+                        </div>
+                        <div class="balance-chart">
+                            <canvas id="balanceChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Panel - Market Data -->
+            <div class="panel right-panel">
+                <section class="market-section">
+                    <h2><i class="fas fa-chart-bar"></i> Market Data</h2>
+                    
+                    <div class="market-tabs">
+                        <button class="market-tab active" data-tab="prices">Prices</button>
+                        <button class="market-tab" data-tab="depth">Depth</button>
+                        <button class="market-tab" data-tab="trades">Recent Trades</button>
+                    </div>
+
+                    <!-- Price Table -->
+                    <div class="market-content active" id="pricesContent">
+                        <table class="market-table">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Price</th>
+                                    <th>24h Change</th>
+                                    <th>Volume</th>
+                                </tr>
+                            </thead>
+                            <tbody id="priceTable">
+                                <!-- Prices will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Order Book -->
+                    <div class="market-content" id="depthContent">
+                        <div class="order-book">
+                            <div class="order-book-side asks">
+                                <h4>Asks (Sell)</h4>
+                                <div class="order-book-list" id="asksList">
+                                    <!-- Asks will be loaded here -->
+                                </div>
+                            </div>
+                            <div class="order-book-spread">
+                                <div id="spreadValue">Spread: $0</div>
+                            </div>
+                            <div class="order-book-side bids">
+                                <h4>Bids (Buy)</h4>
+                                <div class="order-book-list" id="bidsList">
+                                    <!-- Bids will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Trades -->
+                    <div class="market-content" id="tradesContent">
+                        <table class="trades-table">
+                            <thead>
+                                <tr>
+                                    <th>Price</th>
+                                    <th>Amount</th>
+                                    <th>Time</th>
+                                    <th>Side</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tradesTable">
+                                <!-- Trades will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Open Orders -->
+                <section class="open-orders-section">
+                    <h2><i class="fas fa-clock"></i> Open Orders</h2>
+                    
+                    <div class="open-orders-container">
+                        <div class="open-orders-header">
+                            <span>5 Open Orders</span>
+                            <button class="btn-small" id="cancelAllOrders">
+                                <i class="fas fa-times"></i> Cancel All
+                            </button>
+                        </div>
+                        
+                        <div class="open-orders-list" id="openOrdersList">
+                            <!-- Open orders will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Order Confirmation Modal -->
+        <div id="orderModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-check-circle"></i> Confirm Order</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="order-confirmation">
+                        <div class="confirmation-icon">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                        <div class="confirmation-details">
+                            <h4 id="modalSymbol">BTCUSDT</h4>
+                            <div class="confirmation-row">
+                                <span>Type:</span>
+                                <span id="modalType">MARKET</span>
+                            </div>
+                            <div class="confirmation-row">
+                                <span>Side:</span>
+                                <span id="modalSide" class="side-buy">BUY</span>
+                            </div>
+                            <div class="confirmation-row">
+                                <span>Quantity:</span>
+                                <span id="modalQuantity">0.001</span>
+                            </div>
+                            <div class="confirmation-row">
+                                <span>Estimated Cost:</span>
+                                <span id="modalCost">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>This is a real order on Binance Testnet. No actual funds will be spent.</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-secondary modal-close">Cancel</button>
+                    <button class="btn-primary" id="confirmOrder">Confirm & Place Order</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="toast" class="toast">
+            <div class="toast-content">
+                <i class="fas fa-check-circle"></i>
+                <span class="toast-message"></span>
+            </div>
+            <button class="toast-close">&times;</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Binance Futures Trading Bot v1.0</span>
+            </div>
+            <div class="footer-disclaimer">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Testnet Only • No Real Funds • Educational Purpose</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

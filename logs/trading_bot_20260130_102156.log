@@ -1,0 +1,4 @@
+2026-01-30 10:21:56,878 - bot.logging_config - INFO - Logging initialized. Log file: logs/trading_bot_20260130_102156.log
+2026-01-30 10:21:58,291 - bot.client - INFO - Binance Futures client initialized (Testnet: True)
+2026-01-30 10:21:59,604 - bot.client - INFO - Connection test successful
+2026-01-30 10:21:59,825 - bot.client - INFO - Account info retrieved successfully

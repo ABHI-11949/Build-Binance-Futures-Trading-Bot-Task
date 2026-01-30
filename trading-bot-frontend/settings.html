@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Binance Bot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-robot"></i>
+                <span>Trading Bot</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Trading</span>
+                </a>
+                <a href="orders.html" class="nav-link">
+                    <i class="fas fa-list"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="settings.html" class="nav-link active">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            
+            <div class="nav-user">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Testnet User</span>
+                </div>
+                <div class="connection-status connected">
+                    <i class="fas fa-circle"></i>
+                    <span>Connected</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="settings-layout">
+            <!-- Settings Sidebar -->
+            <div class="settings-sidebar">
+                <h3><i class="fas fa-cogs"></i> Settings</h3>
+                <ul class="settings-menu">
+                    <li>
+                        <a href="#api" class="settings-menu-item active">
+                            <i class="fas fa-key"></i>
+                            <span>API Configuration</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#trading" class="settings-menu-item">
+                            <i class="fas fa-robot"></i>
+                            <span>Trading Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#risk" class="settings-menu-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Risk Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#notifications" class="settings-menu-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#appearance" class="settings-menu-item">
+                            <i class="fas fa-palette"></i>
+                            <span>Appearance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#logs" class="settings-menu-item">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Logs & Data</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="settings-help">
+                    <h4><i class="fas fa-question-circle"></i> Help & Support</h4>
+                    <p>Need help with settings?</p>
+                    <button class="btn-secondary btn-block">
+                        <i class="fas fa-book"></i> Documentation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="settings-content">
+                <!-- API Configuration -->
+                <section id="api" class="settings-section active">
+                    <h2><i class="fas fa-key"></i> API Configuration</h2>
+                    
+                    <div class="settings-card">
+                        <div class="api-status">
+                            <div class="status-indicator connected">
+                                <i class="fas fa-plug"></i>
+                                <span>Connected to Binance Testnet</span>
+                            </div>
+                            <button class="btn-secondary" id="testApiConnection">
+                                <i class="fas fa-wifi"></i> Test Connection
+                            </button>
+                        </div>
+
+                        <form id="apiForm">
+                            <div class="form-group">
+                                <label for="apiKey">
+                                    <i class="fas fa-key"></i> API Key
+                                </label>
+                                <div class="input-with-action">
+                                    <input type="password" 
+                                           id="apiKey" 
+                                           class="form-control"
+                                           placeholder="Enter your Binance API Key"
+                                           value="testnet_api_key_here">
+                                    <button type="button" class="btn-icon" id="toggleApiKey">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="apiSecret">
+                                    <i class="fas fa-lock"></i> API Secret
+                                </label>
+                                <div class="input-with-action">
+                                    <input type="password" 
+                                           id="apiSecret" 
+                                           class="form-control"
+                                           placeholder="Enter your Binance API Secret"
+                                           value="testnet_api_secret_here">
+                                    <button type="button" class="btn-icon" id="toggleApiSecret">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="apiEnv">
+                                    <i class="fas fa-server"></i> Environment
+                                </label>
+                                <select id="apiEnv" class="form-control">
+                                    <option value="testnet" selected>Testnet</option>
+                                    <option value="mainnet">Mainnet (Use with Caution)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" id="generateTestKeys">
+                                    <i class="fas fa-magic"></i> Generate Test Keys
+                                </button>
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i> Save API Settings
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="api-help">
+                            <h4><i class="fas fa-info-circle"></i> How to Get API Keys</h4>
+                            <ol>
+                                <li>Go to <a href="https://testnet.binancefuture.com" target="_blank">Binance Futures Testnet</a></li>
+                                <li>Login with your GitHub account</li>
+                                <li>Go to API Management</li>
+                                <li>Create new API key with appropriate permissions</li>
+                                <li>Copy and paste keys here</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Trading Settings -->
+                <section id="trading" class="settings-section">
+                    <h2><i class="fas fa-robot"></i> Trading Settings</h2>
+                    
+                    <div class="settings-card">
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-sliders-h"></i> Default Order Settings
+                            </label>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="defaultSymbol">Default Symbol</label>
+                                    <select id="defaultSymbol" class="form-control">
+                                        <option value="BTCUSDT" selected>BTC/USDT</option>
+                                        <option value="ETHUSDT">ETH/USDT</option>
+                                        <option value="BNBUSDT">BNB/USDT</option>
+                                    </select>
+                                </div>
+                                <div class="form-col">
+                                    <label for="defaultQuantity">Default Quantity</label>
+                                    <input type="number" 
+                                           id="defaultQuantity" 
+                                           class="form-control"
+                                           value="0.001"
+                                           step="0.001">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-bolt"></i> Order Execution
+                            </label>
+                            <div class="checkbox-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="confirmOrders" checked>
+                                    <span>Confirm before placing orders</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" id="autoRefresh" checked>
+                                    <span>Auto-refresh market data</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" id="soundEffects">
+                                    <span>Enable sound effects</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="refreshInterval">
+                                <i class="fas fa-sync-alt"></i> Refresh Interval (seconds)
+                            </label>
+                            <input type="range" 
+                                   id="refreshInterval" 
+                                   min="1" 
+                                   max="60" 
+                                   value="5"
+                                   class="slider">
+                            <div class="slider-value">
+                                <span>Fast</span>
+                                <span id="intervalValue">5 seconds</span>
+                                <span>Slow</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Risk Management -->
+                <section id="risk" class="settings-section">
+                    <h2><i class="fas fa-shield-alt"></i> Risk Management</h2>
+                    
+                    <div class="settings-card">
+                        <div class="form-group">
+                            <label for="maxPositionSize">
+                                <i class="fas fa-chart-pie"></i> Maximum Position Size (%)
+                            </label>
+                            <input type="range" 
+                                   id="maxPositionSize" 
+                                   min="1" 
+                                   max="100" 
+                                   value="25"
+                                   class="slider">
+                            <div class="slider-value">
+                                <span>Conservative</span>
+                                <span id="positionSizeValue">25%</span>
+                                <span>Aggressive</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stopLoss">
+                                <i class="fas fa-hand-paper"></i> Default Stop Loss (%)
+                            </label>
+                            <input type="range" 
+                                   id="stopLoss" 
+                                   min="0.5" 
+                                   max="20" 
+                                   value="5"
+                                   step="0.5"
+                                   class="slider">
+                            <div class="slider-value">
+                                <span>Tight</span>
+                                <span id="stopLossValue">5%</span>
+                                <span>Wide</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="takeProfit">
+                                <i class="fas fa-trophy"></i> Default Take Profit (%)
+                            </label>
+                            <input type="range" 
+                                   id="takeProfit" 
+                                   min="1" 
+                                   max="50" 
+                                   value="10"
+                                   step="1"
+                                   class="slider">
+                            <div class="slider-value">
+                                <span>Conservative</span>
+                                <span id="takeProfitValue">10%</span>
+                                <span>Aggressive</span>
+                            </div>
+                        </div>
+
+                        <div class="risk-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>Risk management settings are crucial. Always test strategies on testnet before using real funds.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Notifications -->
+                <section id="notifications" class="settings-section">
+                    <h2><i class="fas fa-bell"></i> Notifications</h2>
+                    
+                    <div class="settings-card">
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-envelope"></i> Notification Methods
+                            </label>
+                            <div class="checkbox-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="notifyOrderFilled" checked>
+                                    <span>Order filled</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" id="notifyOrderCancelled" checked>
+                                    <span>Order cancelled</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" id="notifyErrors" checked>
+                                    <span>Error notifications</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" id="notifyBalance">
+                                    <span>Balance updates</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notificationSound">
+                                <i class="fas fa-volume-up"></i> Notification Sound
+                            </label>
+                            <select id="notificationSound" class="form-control">
+                                <option value="default">Default</option>
+                                <option value="bell">Bell</option>
+                                <option value="chime">Chime</option>
+                                <option value="beep">Beep</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Appearance -->
+                <section id="appearance" class="settings-section">
+                    <h2><i class="fas fa-palette"></i> Appearance</h2>
+                    
+                    <div class="settings-card">
+                        <div class="form-group">
+                            <label for="theme">
+                                <i class="fas fa-moon"></i> Theme
+                            </label>
+                            <div class="theme-selector">
+                                <label class="theme-option active" data-theme="dark">
+                                    <div class="theme-preview dark"></div>
+                                    <span>Dark</span>
+                                </label>
+                                <label class="theme-option" data-theme="light">
+                                    <div class="theme-preview light"></div>
+                                    <span>Light</span>
+                                </label>
+                                <label class="theme-option" data-theme="auto">
+                                    <div class="theme-preview auto"></div>
+                                    <span>Auto</span>
+                                </label>
+                                <input type="hidden" id="theme" value="dark">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="chartType">
+                                <i class="fas fa-chart-line"></i> Default Chart Type
+                            </label>
+                            <select id="chartType" class="form-control">
+                                <option value="candlestick">Candlestick</option>
+                                <option value="line">Line</option>
+                                <option value="bar">Bar</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-eye"></i> Display Options
+                            </label>
+                            <div class="checkbox-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="compactView">
+                                    <span>Compact view</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" id="showGrid" checked>
+                                    <span>Show grid lines</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" id="animations" checked>
+                                    <span>Enable animations</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Logs & Data -->
+                <section id="logs" class="settings-section">
+                    <h2><i class="fas fa-file-alt"></i> Logs & Data</h2>
+                    
+                    <div class="settings-card">
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-database"></i> Data Management
+                            </label>
+                            <div class="data-actions">
+                                <button class="btn-secondary" id="exportLogs">
+                                    <i class="fas fa-download"></i> Export All Logs
+                                </button>
+                                <button class="btn-secondary" id="clearLogs">
+                                    <i class="fas fa-trash"></i> Clear Logs
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="logLevel">
+                                <i class="fas fa-filter"></i> Log Level
+                            </label>
+                            <select id="logLevel" class="form-control">
+                                <option value="debug">Debug (All messages)</option>
+                                <option value="info" selected>Info (Default)</option>
+                                <option value="warn">Warnings & Errors</option>
+                                <option value="error">Errors Only</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="logRetention">
+                                <i class="fas fa-calendar"></i> Log Retention (days)
+                            </label>
+                            <input type="number" 
+                                   id="logRetention" 
+                                   class="form-control"
+                                   value="30"
+                                   min="1"
+                                   max="365">
+                        </div>
+
+                        <div class="logs-preview">
+                            <h4><i class="fas fa-eye"></i> Recent Logs</h4>
+                            <div class="logs-container">
+                                <div class="log-entry">
+                                    <span class="log-time">14:30:25</span>
+                                    <span class="log-level info">INFO</span>
+                                    <span class="log-message">Order placed: BTCUSDT BUY 0.001</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-time">14:30:26</span>
+                                    <span class="log-level success">SUCCESS</span>
+                                    <span class="log-message">Order filled successfully</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-time">14:31:10</span>
+                                    <span class="log-level warning">WARN</span>
+                                    <span class="log-message">API rate limit approached</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Save All Button -->
+                <div class="settings-save-all">
+                    <button class="btn-primary btn-large" id="saveAllSettings">
+                        <i class="fas fa-save"></i> Save All Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="toast" class="toast">
+            <div class="toast-content">
+                <i class="fas fa-check-circle"></i>
+                <span class="toast-message"></span>
+            </div>
+            <button class="toast-close">&times;</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Binance Futures Trading Bot v1.0</span>
+            </div>
+            <div class="footer-disclaimer">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Testnet Only • No Real Funds • Educational Purpose</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders History - Binance Bot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-robot"></i>
+                <span>Trading Bot</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Trading</span>
+                </a>
+                <a href="orders.html" class="nav-link active">
+                    <i class="fas fa-list"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            
+            <div class="nav-user">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Testnet User</span>
+                </div>
+                <div class="connection-status connected">
+                    <i class="fas fa-circle"></i>
+                    <span>Connected</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Orders Header -->
+        <section class="orders-header">
+            <h1><i class="fas fa-history"></i> Order History</h1>
+            <div class="header-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="orderSearch" placeholder="Search by symbol or order ID...">
+                </div>
+                <div class="filter-controls">
+                    <select id="orderFilter" class="filter-select">
+                        <option value="all">All Orders</option>
+                        <option value="open">Open Orders</option>
+                        <option value="filled">Filled Orders</option>
+                        <option value="cancelled">Cancelled Orders</option>
+                        <option value="market">Market Orders</option>
+                        <option value="limit">Limit Orders</option>
+                    </select>
+                    <select id="timeFilter" class="filter-select">
+                        <option value="7days">Last 7 Days</option>
+                        <option value="30days">Last 30 Days</option>
+                        <option value="90days">Last 90 Days</option>
+                        <option value="all">All Time</option>
+                    </select>
+                    <button class="btn-secondary" id="exportOrders">
+                        <i class="fas fa-download"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Cards -->
+        <section class="orders-stats">
+            <div class="stat-card">
+                <div class="stat-icon total">
+                    <i class="fas fa-list-ol"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Orders</h3>
+                    <p class="stat-value" id="totalOrders">124</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Successful</h3>
+                    <p class="stat-value" id="successOrders">98</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon pending">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Pending</h3>
+                    <p class="stat-value" id="pendingOrders">5</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon failed">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Cancelled/Failed</h3>
+                    <p class="stat-value" id="failedOrders">21</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Table -->
+        <section class="orders-table-section">
+            <div class="table-container">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="selectAll">
+                            </th>
+                            <th>Order ID</th>
+                            <th>Time</th>
+                            <th>Symbol</th>
+                            <th>Type</th>
+                            <th>Side</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Filled</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                        <!-- Orders will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table Actions -->
+            <div class="table-actions">
+                <div class="selected-count">
+                    <span id="selectedCount">0</span> orders selected
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-secondary" id="cancelSelected" disabled>
+                        <i class="fas fa-times"></i> Cancel Selected
+                    </button>
+                    <button class="btn-secondary" id="refreshOrders">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <div class="pagination">
+                        <button class="pagination-btn" id="prevPage" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="page-info">
+                            Page <span id="currentPage">1</span> of <span id="totalPages">5</span>
+                        </span>
+                        <button class="pagination-btn" id="nextPage">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Details Modal -->
+        <div id="orderDetailsModal" class="modal">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h3><i class="fas fa-info-circle"></i> Order Details</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="order-details-grid">
+                        <div class="detail-section">
+                            <h4>Basic Information</h4>
+                            <div class="detail-row">
+                                <span>Order ID:</span>
+                                <span id="detailId">123456789</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Symbol:</span>
+                                <span id="detailSymbol">BTCUSDT</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Type:</span>
+                                <span id="detailType">LIMIT</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Side:</span>
+                                <span id="detailSide" class="side-buy">BUY</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>Price & Quantity</h4>
+                            <div class="detail-row">
+                                <span>Price:</span>
+                                <span id="detailPrice">$45,230.50</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Quantity:</span>
+                                <span id="detailQuantity">0.005 BTC</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Total:</span>
+                                <span id="detailTotal">$226.15</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Filled:</span>
+                                <span id="detailFilled">0.005 BTC</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>Timing</h4>
+                            <div class="detail-row">
+                                <span>Created:</span>
+                                <span id="detailCreated">2024-01-15 14:30:25</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Updated:</span>
+                                <span id="detailUpdated">2024-01-15 14:30:30</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Duration:</span>
+                                <span id="detailDuration">5 seconds</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>Status & Fees</h4>
+                            <div class="detail-row">
+                                <span>Status:</span>
+                                <span id="detailStatus" class="status-filled">FILLED</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Commission:</span>
+                                <span id="detailCommission">$0.23</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Avg Price:</span>
+                                <span id="detailAvgPrice">$45,230.50</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fills Table -->
+                    <div class="fills-section">
+                        <h4>Order Fills</h4>
+                        <table class="fills-table">
+                            <thead>
+                                <tr>
+                                    <th>Fill ID</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Commission</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fillsTable">
+                                <!-- Fills will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-secondary modal-close">Close</button>
+                    <button class="btn-primary" id="viewOnBinance">
+                        <i class="fas fa-external-link-alt"></i> View on Binance
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="toast" class="toast">
+            <div class="toast-content">
+                <i class="fas fa-check-circle"></i>
+                <span class="toast-message"></span>
+            </div>
+            <button class="toast-close">&times;</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Binance Futures Trading Bot v1.0</span>
+            </div>
+            <div class="footer-disclaimer">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Testnet Only • No Real Funds • Educational Purpose</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

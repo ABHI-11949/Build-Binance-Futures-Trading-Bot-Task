@@ -1,0 +1,18 @@
+2026-01-30 11:05:05,468 - bot.logging_config - INFO - Logging initialized. Log file: logs/trading_bot_20260130_110505.log
+2026-01-30 11:05:06,499 - bot.client - INFO - Binance Futures client initialized (Testnet: True)
+2026-01-30 11:05:06,499 - bot.logging_config - INFO - Binance client initialized successfully
+2026-01-30 11:05:06,520 - werkzeug - WARNING -  * Debugger is active!
+2026-01-30 11:05:06,526 - werkzeug - INFO -  * Debugger PIN: 172-359-593
+2026-01-30 11:07:06,922 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:07:06] "[33mGET /api/test-connection HTTP/1.1[0m" 404 -
+2026-01-30 11:07:07,019 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:07:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-01-30 11:07:27,055 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:07:27] "[33mGET /api/test-connection HTTP/1.1[0m" 404 -
+2026-01-30 11:07:59,383 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:07:59] "[33mGET /api/test-connection HTTP/1.1[0m" 404 -
+2026-01-30 11:08:55,368 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:08:55] "[33mGET /api/test-connection HTTP/1.1[0m" 404 -
+2026-01-30 11:08:58,217 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:08:58] "[33mGET /api/test-connection HTTP/1.1[0m" 404 -
+2026-01-30 11:08:58,557 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:08:58] "[33mGET /api/test-connection HTTP/1.1[0m" 404 -
+2026-01-30 11:09:00,035 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:09:00] "[33mGET /api/test-connection HTTP/1.1[0m" 404 -
+2026-01-30 11:09:00,379 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:09:00] "[33mGET /api/test-connection HTTP/1.1[0m" 404 -
+2026-01-30 11:09:28,947 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:09:28] "[33mGET /api HTTP/1.1[0m" 404 -
+2026-01-30 11:14:24,708 - werkzeug - INFO -  * Detected change in 'A:\\PROJECT1\\trading_bot\\api_server.py', reloading
+2026-01-30 11:14:24,712 - werkzeug - INFO -  * Detected change in 'A:\\PROJECT1\\trading_bot\\api_server.py', reloading
+2026-01-30 11:14:24,851 - werkzeug - INFO - 127.0.0.1 - - [30/Jan/2026 11:14:24] "[33mGET /api/test-connection HTTP/1.1[0m" 404 -

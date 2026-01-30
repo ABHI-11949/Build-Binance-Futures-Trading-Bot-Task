@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance Trading Bot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-robot"></i>
+                <span>Trading Bot</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Trading</span>
+                </a>
+                <a href="orders.html" class="nav-link">
+                    <i class="fas fa-list"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            
+            <div class="nav-user">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Testnet User</span>
+                </div>
+                <div class="connection-status connected">
+                    <i class="fas fa-circle"></i>
+                    <span>Connected</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="welcome-card">
+                <div class="welcome-content">
+                    <h1><i class="fas fa-rocket"></i> Welcome to Binance Trading Bot</h1>
+                    <p class="subtitle">Automated trading on Binance Futures Testnet with advanced strategies</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Testnet Mode</h3>
+                                <p class="stat-value">Active</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Risk Level</h3>
+                                <p class="stat-value">Low</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>API Status</h3>
+                                <p class="stat-value">Connected</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="welcome-image">
+                    <i class="fas fa-chart-network"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+            
+            <div class="action-cards">
+                <a href="dashboard.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>Start Trading</h3>
+                    <p>Place new orders and manage positions</p>
+                </a>
+                
+                <a href="#" class="action-card" id="testConnectionBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3>Test Connection</h3>
+                    <p>Check API connectivity</p>
+                </a>
+                
+                <a href="settings.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>API Settings</h3>
+                    <p>Configure API credentials</p>
+                </a>
+                
+                <a href="#" class="action-card" id="viewLogsBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>View Logs</h3>
+                    <p>Check trading activity logs</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="recent-activity">
+            <h2><i class="fas fa-history"></i> Recent Activity</h2>
+            
+            <div class="activity-table-container">
+                <table class="activity-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Symbol</th>
+                            <th>Type</th>
+                            <th>Side</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activityTable">
+                        <!-- Activities will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="table-footer">
+                <button class="btn-secondary" id="refreshActivities">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <a href="orders.html" class="btn-link">View All Orders</a>
+            </div>
+        </section>
+
+        <!-- Notification Toast -->
+        <div id="toast" class="toast">
+            <div class="toast-content">
+                <i class="fas fa-check-circle"></i>
+                <span class="toast-message"></span>
+            </div>
+            <button class="toast-close">&times;</button>
+        </div>
+           <div id="wallet">Loading wallet info...</div>
+    </main>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Binance Futures Trading Bot v1.0</span>
+            </div>
+            <div class="footer-disclaimer">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Testnet Only • No Real Funds • Educational Purpose</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
